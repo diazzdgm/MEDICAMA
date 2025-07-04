@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDICAMA - Renta de Camas de Hospital</title>
+    <meta name="description" content="MEDICAMA - Servicio profesional de renta de camas de hospital. Equipos médicos de alta calidad para recuperación domiciliaria y cuidados especializados.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/Medicama.logosimple.png">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./assets/css/styles.css?v=1735305600">
+    <link rel="stylesheet" href="./assets/css/responsive.css?v=1735305600">
+    <link rel="stylesheet" href="./assets/css/animations.css?v=1735305600">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MEDICAMA - Renta de Camas de Hospital">
+    <meta property="og:description" content="Equipos médicos de alta calidad para recuperación domiciliaria.">
+    <meta property="og:image" content="./assets/images/hero-image.jpg">
+    <meta property="og:url" content="https://medicama.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MEDICAMA - Renta de Camas de Hospital">
+    <meta name="twitter:description" content="Equipos médicos de alta calidad para recuperación domiciliaria.">
+    <meta name="twitter:image" content="./assets/images/hero-image.jpg">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="./assets/images/Medicama.logo.sinfondo.png" alt="MEDICAMA">
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#productos" class="nav-link">Productos</a></li>
+                <li><a href="#precios" class="nav-link">Precios</a></li>
+                <li><a href="#proceso" class="nav-link">Proceso</a></li>
+                <li><a href="#garantia" class="nav-link">Garantía</a></li>
+                <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                <li><a href="#preguntas" class="nav-link">FAQ</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                <li><a href="#contacto" class="cta-button" style="white-space: nowrap; min-width: 140px;">Cotizar Ahora</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1 id="hero-title" style="opacity: 1 !important; transform: none !important; visibility: visible !important; color: #0f172a !important;">
+                    ¿Necesitas una <span style="color: #2563eb !important; font-weight: bold !important; opacity: 1 !important; visibility: visible !important; display: inline !important;">cama Hospitalaria</span> en tu casa con
+                    urgencia?
+                </h1>
+                <p class="hero-description">
+                    Renta rápida, segura, al mejor precio sin complicaciones, en el Estado de Mexico y CDMX En 24 Hrs sin depósitos, cotiza ahora!
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="cta-button">
+                        <span>Solicitar Cotización</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </a>
+                    <a href="#productos" class="secondary-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <span>Ver Productos</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat fade-in-up delay-1">
+                        <span class="hero-stat-number count-animation">5+</span>
+                        <span class="hero-stat-label">Años de experiencia</span>
+                    </div>
+                    <div class="hero-stat fade-in-up delay-2">
+                        <span class="hero-stat-number count-animation">500+</span>
+                        <span class="hero-stat-label">Clientes satisfechos</span>
+                    </div>
+                    <div class="hero-stat fade-in-up delay-3">
+                        <span class="hero-stat-number count-animation">24/7</span>
+                        <span class="hero-stat-label">Soporte técnico</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-in-up">
+                <img src="./assets/images/hero-image.png" 
+                     alt="Cama de hospital moderna"
+                     loading="lazy"
+                     class="float-gentle">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="productos" class="products">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title text-glow-animation">Nuestro Producto</h2>
+                <p class="section-subtitle">
+                    Cama hospitalaria diseñada para mejorar la calidad de vida del paciente y facilitar el trabajo del cuidador.
+                </p>
+            </div>
+            <div class="product-showcase">
+                <div class="product-hero fade-in-up">
+                    <div class="product-media">
+                        <div class="product-image-main">
+                            <div class="product-carousel" id="productCarousel">
+                                <div class="carousel-container">
+                                    <div class="carousel-slide active">
+                                        <img src="./assets/images/cama-1.jpg" alt="Cama Hospitalaria - Vista Principal" loading="lazy">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./assets/images/cama-2.jpg" alt="Cama Hospitalaria - Detalles Laterales" loading="lazy">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./assets/images/cama-3.jpg" alt="Cama Hospitalaria - Mecanismo Manual" loading="lazy">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./assets/images/cama-4.jpg" alt="Cama Hospitalaria - Barandillas" loading="lazy">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./assets/images/cama-5.jpg" alt="Cama Hospitalaria - Vista Completa" loading="lazy">
+                                    </div>
+                                </div>
+                                
+                                <!-- Navigation Arrows -->
+                                <button class="carousel-arrow carousel-prev" onclick="changeSlide(-1)">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M15 18l-6-6 6-6"/>
+                                    </svg>
+                                </button>
+                                <button class="carousel-arrow carousel-next" onclick="changeSlide(1)">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18l6-6-6-6"/>
+                                    </svg>
+                                </button>
+                                
+                                <!-- Dots Navigation -->
+                                <div class="carousel-dots">
+                                    <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(1)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(2)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(3)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(4)"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-video-section">
+                            <button class="video-btn-secondary pulse-glow" onclick="openVideoModal()">
+                                <div class="play-icon rotate-3d">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                                <span>Ver Funcionamiento</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-info">
+                        <div class="product-header">
+                            <h3 class="product-name">Cama Hospitalaria Manual-Confort</h3>
+                            <div class="product-pricing">
+                                <span class="price-main">$980</span>
+                                <span class="price-period">por mes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="product-summary">
+                            <p>Esta cama de hospital está diseñada para mejorar la calidad del paciente y del cuidador, proporcionando funcionalidad óptima para el paciente y su familia.</p>
+                        </div>
+
+                        <div class="product-specs">
+                            <h4>Especificaciones Técnicas</h4>
+                            <div class="specs-grid">
+                                <div class="spec-item fade-in-up delay-1">
+                                    <div class="spec-label">Estructura</div>
+                                    <div class="spec-value">Metálica, soporte hasta 150 Kgs</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-2">
+                                    <div class="spec-label">Movimiento</div>
+                                    <div class="spec-value">Manual de dos posiciones: Torso y Piernas</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-3">
+                                    <div class="spec-label">Cabecera/Piecera</div>
+                                    <div class="spec-value">Plástico aprobado para uso médico</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-4">
+                                    <div class="spec-label">Porta Suero</div>
+                                    <div class="spec-value">Ajuste de altura con 4 soportes</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-5">
+                                    <div class="spec-label">Movilidad</div>
+                                    <div class="spec-value">Ruedas multidireccionales con freno</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-1">
+                                    <div class="spec-label">Colchón</div>
+                                    <div class="spec-value">Ortopédico impermeable seccionado</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-2">
+                                    <div class="spec-label">Higiene</div>
+                                    <div class="spec-value">Desinfección con nebulizador sanitizante</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-3">
+                                    <div class="spec-label">Barandillas</div>
+                                    <div class="spec-value">Colapsables con seguro para cuidado de paciente</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-4">
+                                    <div class="spec-label">Manivelas</div>
+                                    <div class="spec-value">Abatibles de accionamiento para evitar accidentes del cuidador</div>
+                                </div>
+                                <div class="spec-item fade-in-up delay-5">
+                                    <div class="spec-label">Mesa auxiliar</div>
+                                    <div class="spec-value">Mesa para alimentos o terapias</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-cta-section">
+                            <a href="#contacto" class="btn-primary-large">Solicitar Cotización</a>
+                            <button class="btn-outline" onclick="openVideoModal()">Ver Funcionamiento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-close" onclick="closeVideoModal()">&times;</span>
+            <div class="video-container">
+                <video id="productVideo" width="100%" height="400" controls>
+                    <source src="./assets/videos/cama-funcionamiento.mp4" type="video/mp4">
+                    <source src="./assets/videos/cama-funcionamiento.webm" type="video/webm">
+                    <p class="video-fallback">
+                        Tu navegador no soporta el elemento de video. 
+                        <a href="./assets/videos/cama-funcionamiento.mp4">Descargar video</a>
+                    </p>
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Precios Section -->
+    <section id="precios" class="pricing">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title text-glow-animation">Precios de Renta</h2>
+                <p class="section-subtitle">
+                    Renta de cama hospitalaria manual de 2 posiciones (incluye colchón) - Precios transparentes y flexibles
+                </p>
+            </div>
+            
+            <div class="pricing-breakdown-container">
+                <div class="pricing-main-card fade-in-up">
+                    <div class="pricing-header">
+                        <h3>Cama Hospitalaria Manual de 2 Posiciones</h3>
+                        <p class="pricing-subtitle">Incluye colchón ortopédico</p>
+                    </div>
+                    
+                    <div class="pricing-components">
+                        <div class="price-component">
+                            <div class="component-label">Renta Mensual</div>
+                            <div class="component-price">$980 <span>por mes</span></div>
+                        </div>
+                        
+                        <div class="price-component highlight">
+                            <div class="component-label">Entrega, Instalación y Recolección</div>
+                            <div class="component-price">$350 <span>única vez</span></div>
+                            <div class="component-note">En área conurbada Toluca-Metepec</div>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-total">
+                        <div class="total-label">Primer mes total:</div>
+                        <div class="total-amount">$1,330</div>
+                    </div>
+                </div>
+
+                <div class="pricing-info-cards">
+                    <div class="info-card fade-in-up">
+                        <h4>Renovación Mensual</h4>
+                        <p>Renovar la renta por un mes más es muy sencillo. Solo avísanos unos días antes del vencimiento del mes, realiza una transferencia <strong>sin gastos de envío, instalación y recolección</strong> y listo.</p>
+                        <div class="renewal-price">Renovación: <span>$980/mes</span></div>
+                    </div>
+                    
+                    <div class="info-card fade-in-up">
+                        <h4>Fuera del Área de Cobertura</h4>
+                        <p>En caso de estar fuera de la zona Toluca-Metepec, <strong>solicita una cotización enviándonos tu dirección</strong> y te proporcionaremos el costo de entrega para tu ubicación.</p>
+                    </div>
+                    
+                    <div class="info-card fade-in-up">
+                        <h4>Transporte Especializado</h4>
+                        <p>La cama se transporta <strong>desarmada</strong> para poder subir escaleras o entrar por puertas pequeñas. Nuestro equipo se encarga del armado e instalación completa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa de Zonas de Entrega -->
+            <div class="delivery-zones-section fade-in-up">
+                <div class="section-header">
+                    <h3>Zonas de Entrega</h3>
+                    <p class="section-subtitle">Revisa si tu ubicación está dentro de nuestras zonas de cobertura</p>
+                </div>
+                
+                <!-- Contenedor del Mapa -->
+                <div class="map-container">
+                    <div id="delivery-map" class="delivery-map"></div>
+                </div>
+                
+                <!-- Leyenda del Mapa -->
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color free-delivery"></div>
+                        <span>Entrega Incluida</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color paid-delivery"></div>
+                        <span>Entrega con Costo Adicional</span>
+                    </div>
+                </div>
+                
+                <!-- Verificador de Dirección -->
+                <div class="address-checker">
+                    <div class="checker-input-group">
+                        <input type="text" id="address-input" placeholder="Ingresa tu dirección para verificar la zona de entrega" class="address-input">
+                        <button id="check-address-btn" class="check-address-btn">Verificar</button>
+                    </div>
+                    <div id="address-result" class="address-result"></div>
+                </div>
+            </div>
+
+            <div class="pricing-cta-section fade-in-up">
+                <a href="#contacto" class="cta-button pricing-cta-main">Solicitar Cotización</a>
+                <p class="cta-note">Respuesta en menos de 2 horas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso Section -->
+    <section id="proceso" class="process">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title text-glow-animation">Proceso de Renta</h2>
+                <p class="section-subtitle">
+                    En 2 pasos fáciles recibe tu cama en 24 Hrs - Servicio sin complicaciones
+                </p>
+            </div>
+            
+            <div class="process-simple">
+                <div class="simple-step fade-in-up">
+                    <div class="step-number-large">1</div>
+                    <div class="step-content-large">
+                        <h3>Envía tu dirección e INE</h3>
+                        <p>Comparte tu dirección donde necesitas la cama hospitalaria y una foto de tu INE. Es todo lo que necesitamos para comenzar.</p>
+                    </div>
+                </div>
+                
+                <div class="process-arrow-large">→</div>
+                
+                <div class="simple-step fade-in-up">
+                    <div class="step-number-large">2</div>
+                    <div class="step-content-large">
+                        <h3>Recibe la cama en 24 Hrs</h3>
+                        <p>Nuestro equipo llega a tu domicilio, instala la cama y <strong>realizas el pago una vez convencido de lo que recibes.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-highlight fade-in-up">
+                <h3>Disfruta de un servicio sin complicaciones</h3>
+                <p>Con opción a renovar al mes - Solo avísanos y transfiere el pago mensual</p>
+            </div>
+
+            <div class="process-requirements">
+                <div class="requirements-header fade-in-up">
+                    <h3>Requisitos de la Renta</h3>
+                    <p>Documentación necesaria para procesar tu solicitud</p>
+                </div>
+                
+                <div class="requirements-grid">
+                    <div class="requirement-item fade-in-up">
+                        <div class="requirement-icon">📍</div>
+                        <div class="requirement-content">
+                            <h4>Dirección de Servicio</h4>
+                            <p>Dirección completa donde se requiere el servicio de cama hospitalaria</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item fade-in-up">
+                        <div class="requirement-icon">🆔</div>
+                        <div class="requirement-content">
+                            <h4>INE del Contratante</h4>
+                            <p>Identificación oficial vigente de la persona que contrata el servicio</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="requirements-grid-center">
+                    <div class="requirement-item fade-in-up">
+                        <div class="requirement-icon">📄</div>
+                        <div class="requirement-content">
+                            <h4>Contrato de Renta</h4>
+                            <p>Firma de contrato de renta que establece términos y condiciones del servicio</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item fade-in-up">
+                        <div class="requirement-icon">✍️</div>
+                        <div class="requirement-content">
+                            <h4>Pagaré de Garantía</h4>
+                            <p>Firma de pagaré por $25,000 pesos <strong>(sin depósitos - se devuelve al entregar la cama)</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-cta fade-in-up">
+                <a href="#contacto" class="cta-button process-cta-btn">Iniciar Proceso de Renta</a>
+                <p class="process-note">Respuesta inmediata y entrega en 24 horas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garantia Section -->
+    <section id="garantia" class="guarantee">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title text-glow-animation">Nuestra Garantía</h2>
+                <p class="section-subtitle">
+                    Camas hospitalarias semi-nuevas en las mejores condiciones de funcionamiento
+                </p>
+            </div>
+
+            <div class="guarantee-grid">
+                <div class="guarantee-card card-appear delay-1">
+                    <div class="guarantee-icon rotate-3d">🏥</div>
+                    <h3>Camas Semi-Nuevas</h3>
+                    <p>Las camas hospitalarias son <strong>semi-nuevas pero en las mejores condiciones de funcionamiento</strong>. Cada equipo es cuidadosamente seleccionado y revisado.</p>
+                </div>
+                
+                <div class="guarantee-card card-appear delay-2">
+                    <div class="guarantee-icon rotate-3d">🧼</div>
+                    <h3>Entrega Sanitizada</h3>
+                    <p><strong>Se entregan sanitizadas y listas para usarse</strong>. Proceso completo de desinfección y limpieza profesional antes de cada entrega.</p>
+                </div>
+                
+                <div class="guarantee-card card-appear delay-3">
+                    <div class="guarantee-icon rotate-3d">⚡</div>
+                    <h3>Reemplazo en 24 Hrs</h3>
+                    <p><strong>En caso de que llegara a presentarse un problema, reemplazamos la cama en 24 Hrs</strong> sin costo adicional para ti.</p>
+                </div>
+                
+                <div class="guarantee-card card-appear delay-4">
+                    <div class="guarantee-icon rotate-3d">📞</div>
+                    <h3>Soporte 24/7</h3>
+                    <p>Asistencia técnica disponible las 24 horas, todos los días del año para resolver cualquier consulta.</p>
+                </div>
+                
+                <div class="guarantee-card card-appear delay-5">
+                    <div class="guarantee-icon rotate-3d">🔄</div>
+                    <h3>Proceso Sin Complicaciones</h3>
+                    <p>Servicio integral que incluye entrega, instalación, mantenimiento y recolección sin complicaciones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios Section -->
+    <section id="testimonios" class="testimonials">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Testimonios de Clientes</h2>
+                <p class="section-subtitle">
+                    La satisfacción de nuestros clientes es nuestro mejor respaldo. Lee sus experiencias.
+                </p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Excelente servicio. La cama fue entregada en menos de 24 horas y el personal muy profesional. Mi madre se recuperó cómodamente en casa."</p>
+                    <div class="testimonial-author">
+                        <strong>María González</strong>
+                        <span>Ciudad de México</span>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Proceso muy fácil y rápido. El precio es justo y incluye todo. No tuvimos que preocuparnos por nada durante la recuperación de mi esposo."</p>
+                    <div class="testimonial-author">
+                        <strong>Carlos Hernández</strong>
+                        <span>Estado de México</span>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"La atención al cliente es excepcional. Nos explicaron todo muy bien y el soporte técnico siempre estuvo disponible cuando lo necesitamos."</p>
+                    <div class="testimonial-author">
+                        <strong>Ana Martínez</strong>
+                        <span>Tlalnepantla</span>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Rentamos una cama por 3 meses. El descuento por renta prolongada nos ayudó mucho económicamente y la calidad del equipo fue excelente."</p>
+                    <div class="testimonial-author">
+                        <strong>Roberto Silva</strong>
+                        <span>Naucalpan</span>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Muy recomendable. Desde la cotización hasta la recolección todo fue perfecto. Sin duda los volveré a contratar si es necesario."</p>
+                    <div class="testimonial-author">
+                        <strong>Patricia López</strong>
+                        <span>Ecatepec</span>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"La instalación fue rápida y profesional. El técnico nos enseñó a usar todos los controles y siempre estuvieron disponibles para dudas."</p>
+                    <div class="testimonial-author">
+                        <strong>Miguel Rodríguez</strong>
+                        <span>Coyoacán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="preguntas" class="faq">
+        <div class="services-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <p class="section-subtitle">
+                    Resolvemos las dudas más comunes sobre nuestro servicio de renta de camas hospitalarias.
+                </p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Cuánto tengo que pagar a partir del segundo mes?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Solo la renta de 980 pesos.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Cuánto tengo que pagar al inicio?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Renta de cama 980 pesos más envío, instalación y recolección según la distancia de su domicilio.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Cuánto tengo que dejar de depósito?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nada, solo la firma del pagaré por el costo de la cama.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Cuándo se llevan la cama tengo que pagar algo?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, ya está cubierto en el costo de entrega, instalación y recolección.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿El periodo de 1 mes tiene que ver con el mes calendario?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, son 30 días a partir de la fecha de entrega.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Qué tan rápido puedo recibir la cama?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A más tardar en 24 hrs después de confirmar la renta.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿En caso de algún problema con la cama?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Llame a la persona que lo atiende y él solucionará el problema o reemplazará la cama.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Este precio incluye impuestos?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No ningún impuesto.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Me emitirán factura?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, por el momento no podemos facturar.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <div class="faq-question">
+                        <h3>¿Me darán un recibo del pago?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, el contrato será el recibo de pago y/o su registro de transferencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="contact-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title">Solicita tu Cotización</h2>
+                <p class="section-subtitle">
+                    Completa el formulario y nos pondremos en contacto contigo en menos de 2 horas 
+                    para brindar la mejor solución para tus necesidades.
+                </p>
+            </div>
+            <form class="contact-form fade-in-up" id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre Completo *</label>
+                        <input type="text" id="nombre" name="nombre" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono" class="form-label">Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="duracion" class="form-label">Duración Estimada</label>
+                        <select id="duracion" name="duracion" class="form-input">
+                            <option value="">Seleccionar...</option>
+                            <option value="1-mes">1 mes</option>
+                            <option value="2-3-meses">2 a 3 meses</option>
+                            <option value="4-5-meses">4 a 5 meses</option>
+                            <option value="6+-meses">Más de 6 meses</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pisos" class="form-label">Cantidad de Pisos que hay que subir la cama</label>
+                        <select id="pisos" name="pisos" class="form-input">
+                            <option value="">Seleccionar...</option>
+                            <option value="0">Planta baja (sin pisos)</option>
+                            <option value="1">1 piso</option>
+                            <option value="2">2 pisos</option>
+                            <option value="3">3 pisos</option>
+                            <option value="4">4 pisos</option>
+                            <option value="5+">5 o más pisos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="direccion" class="form-label">Dirección de Entrega</label>
+                    <input type="text" id="direccion" name="direccion" class="form-input" placeholder="Calle, número, colonia, delegación/municipio">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje" class="form-label">Información Adicional</label>
+                    <textarea id="mensaje" name="mensaje" class="form-input form-textarea" placeholder="Describe las necesidades específicas del paciente, condiciones médicas relevantes, o cualquier requerimiento especial..."></textarea>
+                </div>
+                <div id="price-estimate" class="price-estimate" style="display: none;">
+                    <p>Precio estimado: <span id="estimated-price"></span></p>
+                </div>
+                <button type="submit" class="cta-button form-submit">
+                    Enviar Solicitud de Cotización
+                </button>
+                <p class="form-disclaimer">
+                    * Campos obligatorios. Nos comprometemos a responder en menos de 2 horas.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MEDICAMA</h3>
+                    <p>Líderes en renta de equipos médicos hospitalarios. Comprometidos con brindar la mejor atención y equipos de calidad para el cuidado de la salud.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <p><a href="#productos">Renta de Camas</a></p>
+                    <p><a href="#servicios">Mantenimiento</a></p>
+                    <p><a href="#servicios">Instalación</a></p>
+                    <p><a href="#servicios">Soporte 24/7</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>📞 +52 7297230763</p>
+                    <p>📧 info@medicama.com</p>
+                    <p>📍 Independencia 107 Barrio San Juan San mateo Atenco Mexico</p>
+                    <p>🕒 Atención 24 horas</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Información</h3>
+                    <p><a href="terminos-y-condiciones.html" aria-label="Términos y Condiciones">Términos y Condiciones</a></p>
+                    <p><a href="politicas-de-privacidad.html" aria-label="Política de Privacidad">Política de Privacidad</a></p>
+                    <p><a href="#garantia" aria-label="Certificaciones">Certificaciones</a></p>
+                    <p><a href="#preguntas" aria-label="Preguntas Frecuentes">Preguntas Frecuentes</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MEDICAMA. Todos los derechos reservados. | Equipos médicos certificados y confiables.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- EmailJS for Form Submission -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- JavaScript Files -->
+    <script src="./assets/js/main.js?v=1735305600"></script>
+    <script src="./assets/js/form-handler.js?v=1735305600"></script>
+    <script src="./assets/js/animations.js?v=1735305600"></script>
+    <script src="./assets/js/maps.js?v=1735305600"></script>
+    
+    <!-- Google Maps Platform API -->
+    <!-- IMPORTANTE: Reemplaza YOUR_API_KEY con tu clave real de Google Maps Platform -->
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9aHV7X2FP4aK6QBxbW4yCROGuy5GAUdI&libraries=geometry&callback=initDeliveryMap">
+    </script>
+</body>
+</html>
