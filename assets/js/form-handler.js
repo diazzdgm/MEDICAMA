@@ -102,6 +102,24 @@ async function simulateFormSubmission(data) {
         // Intentar enviar por EmailJS primero
         if (typeof emailjs !== 'undefined') {
             const response = await sendToEmail(data);
+            
+            // Enviar evento de conversión a Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'conversion', {
+                    'send_to': 'G-FQ23LQ1DG1',
+                    'event_category': 'Formulario',
+                    'event_label': 'Cotización Enviada',
+                    'value': 1
+                });
+                
+                // Evento personalizado para leads
+                gtag('event', 'generate_lead', {
+                    'event_category': 'Lead Generation',
+                    'event_label': 'Formulario Contacto',
+                    'value': 1
+                });
+            }
+            
             return {
                 success: true,
                 message: 'Cotización enviada correctamente'
