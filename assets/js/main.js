@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initTypingEffect();
     initProductCarousel();
+    initAnchorTracking();
+    initCleanURLNavigation();
     
     console.log('MEDICAMA - Sitio web inicializado correctamente');
 });
@@ -715,3 +717,201 @@ function stopCarouselAutoPlay() {
 // Expose functions to global scope for HTML onclick handlers
 window.changeSlide = changeSlide;
 window.goToSlide = goToSlide;
+
+/* ===================================
+   ANCHOR TRACKING PARA CONVERSIONES
+   =================================== */
+
+function initAnchorTracking() {
+    // Track clicks en botones CTA
+    document.addEventListener('click', function(e) {
+        const ctaElement = e.target.closest('[data-cta]');
+        if (ctaElement) {
+            const ctaType = ctaElement.getAttribute('data-cta');
+            console.log('CTA Click:', ctaType);
+            
+            // Enviar evento a Google Analytics si está disponible
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'cta_click', {
+                    'event_category': 'engagement',
+                    'event_label': ctaType,
+                    'custom_parameter': window.location.hash || 'direct'
+                });
+            }
+        }
+    });
+    
+    // Track anchor changes (navigation)
+    window.addEventListener('hashchange', function() {
+        const anchor = window.location.hash.substring(1);
+        console.log('Anchor Navigation:', anchor);
+        
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'anchor_navigation', {
+                'event_category': 'navigation',
+                'event_label': anchor,
+                'custom_parameter': 'anchor_click'
+            });
+        }
+    });
+    
+    // Track form submissions
+    const forms = document.querySelectorAll('[data-form]');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const formType = form.getAttribute('data-form');
+            console.log('Form Submit:', formType);
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    'event_category': 'conversion',
+                    'event_label': formType,
+                    'custom_parameter': window.location.hash || 'direct'
+                });
+            }
+        });
+    });
+}
+
+/* ===================================
+   NAVEGACIÓN CON URLs LIMPIAS
+   =================================== */
+
+function initCleanURLNavigation() {
+    // Mapeo de URLs limpias a secciones
+    const urlSectionMap = {
+        '/contacto': 'contacto',
+        '/productos': 'productos', 
+        '/precios': 'precios',
+        '/proceso': 'proceso',
+        '/garantia': 'garantia',
+        '/testimonios': 'testimonios',
+        '/preguntas': 'preguntas',
+        '/': 'inicio'
+    };
+    
+    // Función de respaldo para navegación directa
+    window.navigateToSection = function(sectionId) {
+        console.log('Navegación directa a:', sectionId);
+        const section = document.getElementById(sectionId);
+        if (section) {
+            // Encontrar la URL correspondiente
+            let targetUrl = '/';
+            for (const [url, id] of Object.entries(urlSectionMap)) {
+                if (id === sectionId) {
+                    targetUrl = url;
+                    break;
+                }
+            }
+            
+            // Actualizar URL sin recargar
+            history.pushState({ section: sectionId }, '', targetUrl);
+            
+            // Hacer scroll
+            section.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Tracking para analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'navigation_click', {
+                    'event_category': 'navigation',
+                    'event_label': targetUrl,
+                    'custom_parameter': 'onclick_navigation'
+                });
+            }
+        }
+    };
+    
+    // Función para hacer scroll a una sección
+    function scrollToSection(sectionId) {
+        console.log('Intentando scroll a sección:', sectionId);
+        const section = document.getElementById(sectionId);
+        if (section) {
+            console.log('Sección encontrada, haciendo scroll');
+            // Agregar un pequeño delay para asegurar que el DOM esté listo
+            setTimeout(() => {
+                section.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        } else {
+            console.error('Sección no encontrada:', sectionId);
+        }
+    }
+    
+    // Interceptar clicks en enlaces de navegación
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+        
+        const href = link.getAttribute('href');
+        if (!href) return;
+        
+        // Solo procesar enlaces internos que empiecen con / (excluyendo archivos .html)
+        if (href.startsWith('/') && !href.includes('.html')) {
+            e.preventDefault();
+            
+            let path = href;
+            console.log('Navegando a:', path);
+            
+            // Buscar la sección correspondiente
+            const sectionId = urlSectionMap[path];
+            if (sectionId) {
+                console.log('Sección encontrada:', sectionId);
+                
+                // Cambiar la URL sin recargar
+                history.pushState({ section: sectionId }, '', path);
+                
+                // Hacer scroll a la sección
+                scrollToSection(sectionId);
+                
+                // Tracking para analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'clean_url_navigation', {
+                        'event_category': 'navigation',
+                        'event_label': path,
+                        'custom_parameter': 'clean_url'
+                    });
+                }
+            }
+        }
+    });
+    
+    // Manejar el botón atrás/adelante del navegador
+    window.addEventListener('popstate', function(e) {
+        if (e.state && e.state.section) {
+            scrollToSection(e.state.section);
+        } else {
+            // Si no hay estado, determinar por la URL actual
+            const currentPath = window.location.pathname;
+            const sectionId = urlSectionMap[currentPath];
+            if (sectionId) {
+                scrollToSection(sectionId);
+            }
+        }
+    });
+    
+    // Manejar la carga inicial si hay una URL específica
+    function handleInitialLoad() {
+        const currentPath = window.location.pathname;
+        console.log('URL actual al cargar:', currentPath);
+        const sectionId = urlSectionMap[currentPath];
+        console.log('Sección mapeada:', sectionId);
+        
+        if (sectionId && sectionId !== 'inicio') {
+            setTimeout(() => {
+                scrollToSection(sectionId);
+            }, 500); // Aumentar delay para asegurar que todo esté cargado
+        }
+    }
+    
+    // Ejecutar cuando la página esté completamente cargada
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleInitialLoad);
+    } else {
+        handleInitialLoad();
+    }
+}

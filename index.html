@@ -7,7 +7,9 @@
     <meta name="description" content="MEDICAMA - Servicio profesional de renta de camas de hospital. Equipos médicos de alta calidad para recuperación domiciliaria y cuidados especializados.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./assets/images/Medicama.logosimple.png">
+    <link rel="icon" type="image/png" href="./assets/images/Medicama.logo.simple.png">
+    <link rel="shortcut icon" type="image/png" href="./assets/images/Medicama.logo.simple.png">
+    <link rel="apple-touch-icon" href="./assets/images/Medicama.logo.simple.png">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="./assets/css/styles.css?v=1735305600">
@@ -47,19 +49,19 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <img src="./assets/images/Medicama.logo.sinfondo.png" alt="MEDICAMA">
             </a>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#inicio" class="nav-link">Inicio</a></li>
-                <li><a href="#productos" class="nav-link">Productos</a></li>
-                <li><a href="#precios" class="nav-link">Precios</a></li>
-                <li><a href="#proceso" class="nav-link">Proceso</a></li>
-                <li><a href="#garantia" class="nav-link">Garantía</a></li>
-                <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
-                <li><a href="#preguntas" class="nav-link">FAQ</a></li>
-                <li><a href="#contacto" class="nav-link">Contacto</a></li>
-                <li><a href="#contacto" class="cta-button" style="white-space: nowrap; min-width: 140px;">Cotizar Ahora</a></li>
+                <li><a href="/" class="nav-link" onclick="navigateToSection('inicio'); return false;">Inicio</a></li>
+                <li><a href="/productos" class="nav-link" onclick="navigateToSection('productos'); return false;">Productos</a></li>
+                <li><a href="/precios" class="nav-link" onclick="navigateToSection('precios'); return false;">Precios</a></li>
+                <li><a href="/proceso" class="nav-link" onclick="navigateToSection('proceso'); return false;">Proceso</a></li>
+                <li><a href="/garantia" class="nav-link" onclick="navigateToSection('garantia'); return false;">Garantía</a></li>
+                <li><a href="/testimonios" class="nav-link" onclick="navigateToSection('testimonios'); return false;">Testimonios</a></li>
+                <li><a href="/preguntas" class="nav-link" onclick="navigateToSection('preguntas'); return false;">FAQ</a></li>
+                <li><a href="/contacto" class="nav-link" onclick="navigateToSection('contacto'); return false;">Contacto</a></li>
+                <li><a href="/contacto" class="cta-button" onclick="navigateToSection('contacto'); return false;" style="white-space: nowrap; min-width: 140px;">Cotizar Ahora</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobile-menu-btn">
                 <span></span>
@@ -70,7 +72,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
+    <section id="inicio" class="hero" data-section="home">
         <div class="hero-container">
             <div class="hero-content fade-in-up">
                 <h1 id="hero-title" style="opacity: 1 !important; transform: none !important; visibility: visible !important; color: #0f172a !important;">
@@ -81,13 +83,13 @@
                     Renta rápida, segura, al mejor precio sin complicaciones, en el Estado de Mexico y CDMX En 24 Hrs sin depósitos, cotiza ahora!
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contacto" class="cta-button">
+                    <a href="/contacto" class="cta-button" data-cta="hero-quote" onclick="navigateToSection('contacto'); return false;">
                         <span>Solicitar Cotización</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 18l6-6-6-6"/>
                         </svg>
                     </a>
-                    <a href="#productos" class="secondary-button">
+                    <a href="/productos" class="secondary-button" data-cta="hero-products" onclick="navigateToSection('productos'); return false;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
@@ -120,7 +122,7 @@
     </section>
 
     <!-- Products Section -->
-    <section id="productos" class="products">
+    <section id="productos" class="products" data-section="products">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title text-glow-animation">Nuestro Producto</h2>
@@ -187,7 +189,7 @@
                     
                     <div class="product-info">
                         <div class="product-header">
-                            <h3 class="product-name">Cama Hospitalaria Manual-Confort</h3>
+                            <h3 class="product-name" id="cama-hospitalaria">Cama Hospitalaria Manual-Confort</h3>
                             <div class="product-pricing">
                                 <span class="price-main">$980</span>
                                 <span class="price-period">por mes</span>
@@ -244,9 +246,35 @@
                             </div>
                         </div>
 
+                        <!-- Video Preview Section -->
+                        <div class="video-preview-section" itemscope itemtype="https://schema.org/VideoObject">
+                            <meta itemprop="name" content="Funcionamiento de Cama Hospitalaria MEDICAMA">
+                            <meta itemprop="description" content="Video demostrativo del funcionamiento de las camas hospitalarias MEDICAMA. Muestra las características, ajustes y funcionalidades de nuestros equipos médicos para renta domiciliaria.">
+                            <meta itemprop="thumbnailUrl" content="https://camadehospital.mx/assets/images/cama-1.jpg">
+                            <meta itemprop="uploadDate" content="2025-01-15">
+                            <meta itemprop="duration" content="PT2M30S">
+                            <meta itemprop="contentUrl" content="https://camadehospital.mx/assets/videos/cama-funcionamiento.mp4">
+                            <meta itemprop="embedUrl" content="https://camadehospital.mx/productos#video">
+                            
+                            <div class="video-thumbnail" onclick="openVideoModal()" style="cursor: pointer;">
+                                <img src="./assets/images/cama-1.jpg" alt="Video: Funcionamiento de Cama Hospitalaria MEDICAMA" itemprop="thumbnail">
+                                <div class="play-overlay">
+                                    <div class="play-button">
+                                        <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-info">
+                                    <h5>Ver Funcionamiento - Video Demostrativo</h5>
+                                    <span class="video-duration">2:30 min</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="product-cta-section">
-                            <a href="#contacto" class="btn-primary-large">Solicitar Cotización</a>
-                            <button class="btn-outline" onclick="openVideoModal()">Ver Funcionamiento</button>
+                            <a href="/contacto" class="btn-primary-large" data-cta="product-quote" onclick="navigateToSection('contacto'); return false;">Solicitar Cotización</a>
+                            <button class="btn-outline" onclick="openVideoModal()" data-cta="product-video">Ver Funcionamiento</button>
                         </div>
                     </div>
                 </div>
@@ -258,8 +286,15 @@
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <span class="video-close" onclick="closeVideoModal()">&times;</span>
-            <div class="video-container">
-                <video id="productVideo" width="100%" height="400" controls>
+            <div class="video-container" itemscope itemtype="https://schema.org/VideoObject">
+                <meta itemprop="name" content="Funcionamiento de Cama Hospitalaria MEDICAMA">
+                <meta itemprop="description" content="Video demostrativo del funcionamiento de las camas hospitalarias MEDICAMA. Muestra las características, ajustes y funcionalidades de nuestros equipos médicos para renta domiciliaria.">
+                <meta itemprop="thumbnailUrl" content="https://camadehospital.mx/assets/images/cama-1.jpg">
+                <meta itemprop="uploadDate" content="2025-01-15">
+                <meta itemprop="duration" content="PT2M30S">
+                <meta itemprop="contentUrl" content="https://camadehospital.mx/assets/videos/cama-funcionamiento.mp4">
+                <meta itemprop="embedUrl" content="https://camadehospital.mx/productos#video">
+                <video id="productVideo" width="100%" height="400" controls itemprop="video">
                     <source src="./assets/videos/cama-funcionamiento.mp4" type="video/mp4">
                     <source src="./assets/videos/cama-funcionamiento.webm" type="video/webm">
                     <p class="video-fallback">
@@ -272,7 +307,7 @@
     </div>
 
     <!-- Precios Section -->
-    <section id="precios" class="pricing">
+    <section id="precios" class="pricing" data-section="pricing">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title text-glow-animation">Precios de Renta</h2>
@@ -284,7 +319,7 @@
             <div class="pricing-breakdown-container">
                 <div class="pricing-main-card fade-in-up">
                     <div class="pricing-header">
-                        <h3>Cama Hospitalaria Manual de 2 Posiciones</h3>
+                        <h3 id="precio-cama-hospitalaria">Cama Hospitalaria Manual de 2 Posiciones</h3>
                         <p class="pricing-subtitle">Incluye colchón ortopédico</p>
                     </div>
                     
@@ -361,14 +396,14 @@
             </div>
 
             <div class="pricing-cta-section fade-in-up">
-                <a href="#contacto" class="cta-button pricing-cta-main">Solicitar Cotización</a>
+                <a href="/contacto" class="cta-button pricing-cta-main" data-cta="pricing-quote" onclick="navigateToSection('contacto'); return false;">Solicitar Cotización</a>
                 <p class="cta-note">Respuesta en menos de 2 horas</p>
             </div>
         </div>
     </section>
 
     <!-- Proceso Section -->
-    <section id="proceso" class="process">
+    <section id="proceso" class="process" data-section="process">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title text-glow-animation">Proceso de Renta</h2>
@@ -381,7 +416,7 @@
                 <div class="simple-step fade-in-up">
                     <div class="step-number-large">1</div>
                     <div class="step-content-large">
-                        <h3>Envía tu dirección e INE</h3>
+                        <h3 id="como-rentar">Envía tu dirección e INE</h3>
                         <p>Comparte tu dirección donde necesitas la cama hospitalaria y una foto de tu INE. Es todo lo que necesitamos para comenzar.</p>
                     </div>
                 </div>
@@ -446,14 +481,14 @@
             </div>
 
             <div class="process-cta fade-in-up">
-                <a href="#contacto" class="cta-button process-cta-btn">Iniciar Proceso de Renta</a>
+                <a href="/contacto" class="cta-button process-cta-btn" data-cta="process-quote" onclick="navigateToSection('contacto'); return false;">Iniciar Proceso de Renta</a>
                 <p class="process-note">Respuesta inmediata y entrega en 24 horas</p>
             </div>
         </div>
     </section>
 
     <!-- Garantia Section -->
-    <section id="garantia" class="guarantee">
+    <section id="garantia" class="guarantee" data-section="guarantee">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title text-glow-animation">Nuestra Garantía</h2>
@@ -497,7 +532,7 @@
     </section>
 
     <!-- Testimonios Section -->
-    <section id="testimonios" class="testimonials">
+    <section id="testimonios" class="testimonials" data-section="testimonials">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title">Testimonios de Clientes</h2>
@@ -559,7 +594,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="preguntas" class="faq">
+    <section id="preguntas" class="faq" data-section="faq">
         <div class="services-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title">Preguntas Frecuentes</h2>
@@ -663,7 +698,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contacto" class="contact">
+    <section id="contacto" class="contact" data-section="contact">
         <div class="contact-container">
             <div class="section-header fade-in-up">
                 <h2 class="section-title">Solicita tu Cotización</h2>
@@ -672,7 +707,7 @@
                     para brindar la mejor solución para tus necesidades.
                 </p>
             </div>
-            <form class="contact-form fade-in-up" id="contactForm">
+            <form class="contact-form fade-in-up" id="contactForm" data-form="quote-request">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nombre" class="form-label">Nombre Completo *</label>
@@ -718,7 +753,7 @@
                 <div id="price-estimate" class="price-estimate" style="display: none;">
                     <p>Precio estimado: <span id="estimated-price"></span></p>
                 </div>
-                <button type="submit" class="cta-button form-submit">
+                <button type="submit" class="cta-button form-submit" data-cta="form-submit">
                     Enviar Solicitud de Cotización
                 </button>
                 <p class="form-disclaimer">
@@ -738,10 +773,10 @@
                 </div>
                 <div class="footer-section">
                     <h3>Servicios</h3>
-                    <p><a href="#productos">Renta de Camas</a></p>
-                    <p><a href="#servicios">Mantenimiento</a></p>
-                    <p><a href="#servicios">Instalación</a></p>
-                    <p><a href="#servicios">Soporte 24/7</a></p>
+                    <p><a href="/productos">Renta de Camas</a></p>
+                    <p><a href="/proceso">Mantenimiento</a></p>
+                    <p><a href="/proceso">Instalación</a></p>
+                    <p><a href="/garantia">Soporte 24/7</a></p>
                 </div>
                 <div class="footer-section">
                     <h3>Contacto</h3>
@@ -754,8 +789,8 @@
                     <h3>Información</h3>
                     <p><a href="terminos-y-condiciones.html" aria-label="Términos y Condiciones">Términos y Condiciones</a></p>
                     <p><a href="politicas-de-privacidad.html" aria-label="Política de Privacidad">Política de Privacidad</a></p>
-                    <p><a href="#garantia" aria-label="Certificaciones">Certificaciones</a></p>
-                    <p><a href="#preguntas" aria-label="Preguntas Frecuentes">Preguntas Frecuentes</a></p>
+                    <p><a href="/garantia" aria-label="Certificaciones">Certificaciones</a></p>
+                    <p><a href="/preguntas" aria-label="Preguntas Frecuentes">Preguntas Frecuentes</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
