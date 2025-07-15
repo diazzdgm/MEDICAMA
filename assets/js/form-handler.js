@@ -103,8 +103,15 @@ async function simulateFormSubmission(data) {
         if (typeof emailjs !== 'undefined') {
             const response = await sendToEmail(data);
             
-            // Enviar evento de conversión a Google Analytics
+            // CONVERSIÓN GOOGLE ADS - Envío de Formulario
             if (typeof gtag !== 'undefined') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17307747467/_YuOCJf9xfEaEIuJ_bxA',
+                    'value': 50.0,
+                    'currency': 'MXN'
+                });
+                
+                // Evento adicional para Google Analytics
                 gtag('event', 'conversion', {
                     'send_to': 'G-FQ23LQ1DG1',
                     'event_category': 'Formulario',

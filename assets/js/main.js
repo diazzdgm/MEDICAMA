@@ -203,6 +203,17 @@ function createWhatsAppButton() {
     whatsappBtn.className = 'whatsapp-float';
     whatsappBtn.setAttribute('aria-label', 'Contactar por WhatsApp');
     
+    // CONVERSIÓN GOOGLE ADS - WhatsApp Click
+    whatsappBtn.addEventListener('click', function() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17307747467/ZB7MCMmDtPEaEIuJ_bxA'
+            });
+            
+            console.log('Conversión WhatsApp enviada a Google Ads');
+        }
+    });
+    
     whatsappBtn.addEventListener('mouseenter', function() {
         this.style.transform = 'scale(1.1)';
     });
