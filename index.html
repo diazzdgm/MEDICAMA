@@ -590,6 +590,80 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Agregar Testimonio Form -->
+            <div class="add-testimonial-section fade-in-up">
+                <h3 class="add-testimonial-title">Comparte tu Experiencia</h3>
+                <p class="add-testimonial-subtitle">
+                    ¿Has usado nuestro servicio? Nos encantaría conocer tu experiencia y ayudar a otros clientes.
+                </p>
+                
+                <form id="testimonial-form" class="testimonial-form">
+                    <div class="form-group">
+                        <label for="testimonial-name">Nombre completo *</label>
+                        <input type="text" id="testimonial-name" name="name" 
+                               placeholder="Ej: María González">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testimonial-location">Ubicación *</label>
+                        <input type="text" id="testimonial-location" name="location" 
+                               placeholder="Ej: Ciudad de México">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testimonial-rating">Calificación *</label>
+                        <div class="rating-container">
+                            <div class="rating-input">
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1" class="star" data-rating="1">⭐</label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2" class="star" data-rating="2">⭐</label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3" class="star" data-rating="3">⭐</label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4" class="star" data-rating="4">⭐</label>
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5" class="star" data-rating="5">⭐</label>
+                            </div>
+                            <div class="rating-feedback">
+                                <span class="rating-text">Selecciona una calificación</span>
+                                <span class="rating-description"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testimonial-message">Tu experiencia *</label>
+                        <textarea id="testimonial-message" name="message" 
+                                  placeholder="Cuéntanos sobre tu experiencia con nuestro servicio..." 
+                                  rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="testimonial-consent" name="consent">
+                        <label for="testimonial-consent">
+                            Autorizo el uso de mi testimonio para fines promocionales y acepto los 
+                            <a href="/terminos-y-condiciones" target="_blank">términos y condiciones</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-testimonial-btn" id="submit-testimonial">
+                        <span class="btn-text">Enviar Testimonio</span>
+                        <span class="btn-loading" style="display: none;">Enviando...</span>
+                    </button>
+                </form>
+                
+                <div id="testimonial-success" class="form-message success" style="display: none;">
+                    <h4>¡Gracias por tu testimonio!</h4>
+                    <p>Hemos recibido tu experiencia. Después de una revisión, podría aparecer en nuestro sitio web.</p>
+                </div>
+                
+                <div id="testimonial-error" class="form-message error" style="display: none;">
+                    <h4>Error al enviar</h4>
+                    <p>Hubo un problema al enviar tu testimonio. Por favor, inténtalo de nuevo.</p>
+                </div>
+            </div>
         </div>
     </section>
 

@@ -2421,6 +2421,273 @@ img {
     font-size: var(--font-size-sm);
 }
 
+/* Add Testimonial Form Section */
+.add-testimonial-section {
+    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-2xl);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--gray-200);
+}
+
+.add-testimonial-title {
+    color: var(--dark-text);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.add-testimonial-subtitle {
+    color: var(--medium-text);
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    line-height: 1.6;
+}
+
+.testimonial-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.testimonial-form .form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.testimonial-form label {
+    display: block;
+    color: var(--dark-text);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+}
+
+.testimonial-form input[type="text"],
+.testimonial-form textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 2px solid var(--gray-300);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.testimonial-form input[type="text"]:focus,
+.testimonial-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.testimonial-form textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+/* Rating Input Styles */
+.rating-container {
+    margin-top: var(--spacing-sm);
+}
+
+.rating-input {
+    display: flex;
+    justify-content: flex-start;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.rating-input .star {
+    font-size: var(--font-size-2xl);
+    color: var(--gray-300);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: relative;
+}
+
+.rating-input .star:hover {
+    transform: scale(1.2);
+}
+
+/* Hover effect: highlight current star and all previous stars */
+.rating-input .star:hover,
+.rating-input .star:hover ~ .star.previous {
+    color: #fbbf24;
+}
+
+/* Selected state: highlight selected star and all previous stars */
+.rating-input input[type="radio"]:checked + .star,
+.rating-input input[type="radio"]:checked ~ input[type="radio"] + .star {
+    color: #fbbf24;
+}
+
+.rating-input .star.selected {
+    color: #fbbf24;
+    animation: starPulse 0.3s ease;
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1.1); }
+}
+
+/* Rating Feedback */
+.rating-feedback {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.rating-text {
+    font-size: var(--font-size-sm);
+    color: var(--medium-text);
+    font-weight: 500;
+}
+
+.rating-text.selected {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.rating-description {
+    font-size: var(--font-size-xs);
+    color: var(--light-text);
+    font-style: italic;
+    min-height: 18px;
+    transition: var(--transition);
+}
+
+.rating-description.show {
+    color: var(--accent-teal);
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-blue);
+}
+
+.checkbox-group label {
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    color: var(--medium-text);
+    margin: 0;
+    font-weight: 400;
+}
+
+.checkbox-group a {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.submit-testimonial-btn {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-testimonial-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.submit-testimonial-btn:active {
+    transform: translateY(0);
+}
+
+.submit-testimonial-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-testimonial-btn .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.submit-testimonial-btn .btn-loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Form Messages */
+.form-message {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-lg);
+    text-align: center;
+}
+
+.form-message.success {
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.form-message.success h4 {
+    color: #166534;
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-lg);
+}
+
+.form-message.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+}
+
+.form-message.error h4 {
+    color: #dc2626;
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-lg);
+}
+
+.form-message p {
+    margin: 0;
+    line-height: 1.5;
+}
+
 /* FAQ Section */
 .faq {
     padding: var(--spacing-2xl) 0;

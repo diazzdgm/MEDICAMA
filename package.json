@@ -4,8 +4,8 @@
   "description": "Sitio web para renta de camas de hospital",
   "main": "index.html",
   "scripts": {
-    "start": "live-server --port=3000",
-    "dev": "live-server --port=3000 --watch=assets",
+    "start": "live-server --port=3000 --entry-file=index.html",
+    "dev": "live-server --port=3000 --watch=assets --entry-file=index.html",
     "build": "echo 'Proyecto listo para producción'",
     "deploy": "echo 'Configurar deployment'"
   },

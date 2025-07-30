@@ -657,6 +657,275 @@ async function sendToEmail(formData) {
 }
 
 /* ===================================
+   MANEJO DE TESTIMONIOS
+   =================================== */
+
+async function handleTestimonialSubmission(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const form = event.target;
+    const submitBtn = document.getElementById('submit-testimonial');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    const successMessage = document.getElementById('testimonial-success');
+    const errorMessage = document.getElementById('testimonial-error');
+    
+    // Ocultar mensajes previos
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    // Obtener datos del formulario
+    const formData = {
+        nombre: form.name.value.trim(),
+        ubicacion: form.location.value.trim(),
+        calificacion: form.rating.value,
+        mensaje: form.message.value.trim(),
+        consent: form.consent.checked
+    };
+    
+    // Debug: mostrar datos del formulario
+    console.log('Datos del formulario testimonio:', formData);
+    
+    // Validación detallada
+    let testimonialErrorMessage = '';
+    
+    if (!formData.nombre) {
+        testimonialErrorMessage = 'Por favor, ingresa tu nombre completo.';
+    } else if (!formData.ubicacion) {
+        testimonialErrorMessage = 'Por favor, ingresa tu ubicación.';
+    } else if (!formData.calificacion) {
+        testimonialErrorMessage = 'Por favor, selecciona una calificación con las estrellas.';
+    } else if (!formData.mensaje) {
+        testimonialErrorMessage = 'Por favor, escribe tu experiencia.';
+    } else if (!formData.consent) {
+        testimonialErrorMessage = 'Debes autorizar el uso de tu testimonio para continuar.';
+    }
+    
+    if (testimonialErrorMessage) {
+        console.log('Validación fallida:', {
+            nombre: !!formData.nombre,
+            ubicacion: !!formData.ubicacion,
+            calificacion: !!formData.calificacion,
+            mensaje: !!formData.mensaje,
+            consent: !!formData.consent
+        });
+        showTestimonialError(testimonialErrorMessage);
+        return;
+    }
+    
+    // Mostrar estado de carga
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'inline';
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    try {
+        const result = await sendTestimonialEmail(formData);
+        
+        if (result.success) {
+            // Éxito
+            form.reset();
+            successMessage.style.display = 'block';
+            
+            // Google Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'testimonial_submission', {
+                    event_category: 'engagement',
+                    event_label: 'testimonial_form',
+                    value: parseInt(formData.calificacion)
+                });
+            }
+            
+            // Scroll al mensaje de éxito
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            showTestimonialError(result.error || 'Error al enviar el testimonio.');
+        }
+    } catch (error) {
+        console.error('Error en envío de testimonio:', error);
+        showTestimonialError('Error de conexión. Por favor, inténtalo de nuevo.');
+    } finally {
+        // Restaurar botón
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+    }
+}
+
+async function sendTestimonialEmail(formData) {
+    // Configuración EmailJS para MEDICAMA
+    const SERVICE_ID = 'service_hy7j13g';        // ServiceID configurado
+    const TEMPLATE_ID = 'template_gnu6kb9';      // Usar template existente
+    const PUBLIC_KEY = 'X7THsPodFCb8DzpnS';      // Public Key configurado
+    
+    // Generar estrellas basadas en calificación
+    const stars = '⭐'.repeat(parseInt(formData.calificacion));
+    
+    // Formatear datos para el template existente
+    const emailData = {
+        to_email: 'info@camadehospital.mx',
+        from_name: formData.nombre,
+        customer_phone: 'No proporcionado',
+        duration: 'Testimonio',
+        floors: formData.ubicacion,
+        address: `Calificación: ${stars} (${formData.calificacion}/5)`,
+        message: `TESTIMONIO DEL CLIENTE:\n\n${formData.mensaje}\n\nCalificación: ${stars} (${formData.calificacion}/5)\nUbicación: ${formData.ubicacion}`,
+        timestamp: new Date().toLocaleString('es-MX', {
+            timeZone: 'America/Mexico_City',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }),
+        source: 'Testimonio - Sitio Web MEDICAMA'
+    };
+    
+    // Envío con EmailJS
+    if (typeof emailjs !== 'undefined') {
+        try {
+            const response = await emailjs.send(SERVICE_ID, TEMPLATE_ID, emailData, PUBLIC_KEY);
+            console.log('Testimonio enviado exitosamente:', response);
+            return { success: true };
+        } catch (error) {
+            console.error('Error EmailJS testimonio:', error);
+            return { success: false, error: 'Error al enviar por email' };
+        }
+    } else {
+        console.warn('EmailJS no está cargado para testimonios');
+        return { success: false, error: 'Servicio de email no disponible' };
+    }
+}
+
+function showTestimonialError(message) {
+    const errorMessage = document.getElementById('testimonial-error');
+    const errorText = errorMessage.querySelector('p');
+    errorText.textContent = message;
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Inicializar manejo de testimonios cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado - Buscando formulario de testimonios...');
+    const testimonialForm = document.getElementById('testimonial-form');
+    
+    if (testimonialForm) {
+        console.log('Formulario de testimonios encontrado - Inicializando...');
+        testimonialForm.addEventListener('submit', handleTestimonialSubmission);
+        initializeStarRating();
+    } else {
+        console.log('ERROR: Formulario de testimonios NO encontrado');
+    }
+});
+
+// Inicializar funcionalidad de calificación por estrellas
+function initializeStarRating() {
+    console.log('=== INICIANDO initializeStarRating ===');
+    
+    const stars = document.querySelectorAll('.rating-input .star');
+    const ratingText = document.querySelector('.rating-text');
+    const ratingDescription = document.querySelector('.rating-description');
+    
+    console.log('Stars encontradas:', stars.length);
+    console.log('Rating text elemento:', ratingText);
+    console.log('Rating description elemento:', ratingDescription);
+    
+    if (stars.length === 0) {
+        console.error('NO SE ENCONTRARON ESTRELLAS - Verificando selectores...');
+        console.log('Formulario testimonios:', document.getElementById('testimonial-form'));
+        console.log('Rating input:', document.querySelector('.rating-input'));
+        console.log('Todos los elementos star:', document.querySelectorAll('.star'));
+        return;
+    }
+    
+    const ratingLabels = {
+        1: { text: '1 estrella seleccionada', desc: 'Muy insatisfecho - El servicio no cumplió las expectativas' },
+        2: { text: '2 estrellas seleccionadas', desc: 'Insatisfecho - El servicio tuvo varios problemas' },
+        3: { text: '3 estrellas seleccionadas', desc: 'Neutral - El servicio fue aceptable' },
+        4: { text: '4 estrellas seleccionadas', desc: 'Satisfecho - Buen servicio, lo recomendaría' },
+        5: { text: '5 estrellas seleccionadas', desc: 'Muy satisfecho - Excelente servicio, superó las expectativas' }
+    };
+    
+    let currentRating = 0;
+    
+    console.log('Inicializando star rating. Stars encontradas:', stars.length);
+    
+    // Agregar eventos a cada estrella
+    stars.forEach((star, index) => {
+        const rating = parseInt(star.dataset.rating);
+        console.log(`Configurando estrella ${rating}`);
+        
+        // Click event - PRINCIPAL
+        star.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            console.log(`Estrella ${rating} clickeada`);
+            currentRating = rating;
+            
+            // Marcar el radio button
+            const radioButton = document.getElementById(`star${rating}`);
+            if (radioButton) {
+                radioButton.checked = true;
+                console.log(`Radio button star${rating} marcado`);
+            }
+            
+            // Actualizar visualización
+            updateStarsDisplay(rating);
+            
+            // Actualizar texto
+            if (ratingLabels[rating]) {
+                ratingText.textContent = ratingLabels[rating].text;
+                ratingText.classList.add('selected');
+                ratingDescription.textContent = ratingLabels[rating].desc;
+                ratingDescription.classList.add('show');
+            }
+        });
+        
+        // Hover events
+        star.addEventListener('mouseenter', function() {
+            updateStarsDisplay(rating, true);
+            if (ratingLabels[rating]) {
+                ratingText.textContent = `${ratingLabels[rating].text} (preview)`;
+                ratingDescription.textContent = ratingLabels[rating].desc;
+                ratingDescription.classList.add('show');
+            }
+        });
+        
+        star.addEventListener('mouseleave', function() {
+            updateStarsDisplay(currentRating);
+            if (currentRating > 0) {
+                ratingText.textContent = ratingLabels[currentRating].text;
+                ratingText.classList.add('selected');
+                ratingDescription.textContent = ratingLabels[currentRating].desc;
+                ratingDescription.classList.add('show');
+            } else {
+                ratingText.textContent = 'Selecciona una calificación';
+                ratingText.classList.remove('selected');
+                ratingDescription.textContent = '';
+                ratingDescription.classList.remove('show');
+            }
+        });
+    });
+    
+    function updateStarsDisplay(rating, isHover = false) {
+        stars.forEach((star) => {
+            const starRating = parseInt(star.dataset.rating);
+            if (starRating <= rating) {
+                star.style.color = '#fbbf24';
+                star.style.transform = isHover ? 'scale(1.1)' : 'scale(1)';
+            } else {
+                star.style.color = '#cbd5e1';
+                star.style.transform = 'scale(1)';
+            }
+        });
+    }
+}
+
+/* ===================================
    FUNCIONES AUXILIARES
    =================================== */
 
