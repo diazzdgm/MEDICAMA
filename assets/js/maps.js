@@ -98,6 +98,9 @@ function initDeliveryMap() {
     // Configurar el verificador de direcciones
     setupAddressChecker();
     
+    // Configurar autocompletado de direcciones
+    setupAddressAutocomplete();
+    
     console.log('Mapa de zonas de entrega inicializado correctamente');
 }
 
@@ -143,6 +146,11 @@ function setupAddressChecker() {
     
     // Manejar click del botón verificar
     checkButton.addEventListener('click', () => {
+        console.log('=== USUARIO HIZO CLICK EN VERIFICAR ===');
+        
+        // OCULTAR SUGERENCIAS INMEDIATAMENTE
+        hideAutocompleteSuggestions();
+        
         const address = addressInput.value.trim();
         if (address) {
             checkAddressDeliveryZone(address);
@@ -154,7 +162,12 @@ function setupAddressChecker() {
     // Manejar Enter en el campo de dirección
     addressInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
+            console.log('=== USUARIO PRESIONÓ ENTER ===');
             e.preventDefault();
+            
+            // OCULTAR SUGERENCIAS INMEDIATAMENTE
+            hideAutocompleteSuggestions();
+            
             checkButton.click();
         }
     });
@@ -163,15 +176,15 @@ function setupAddressChecker() {
 // Verificar en qué zona de entrega está una dirección
 function checkAddressDeliveryZone(address) {
     const checkButton = document.getElementById('check-address-btn');
-    const originalText = checkButton.textContent;
     
-    // Mostrar estado de carga
-    checkButton.textContent = 'Verificando...';
+    // Ocultar sugerencias de autocomplete si están visibles
+    hideAutocompleteSuggestions();
+    
+    // Deshabilitar botón temporalmente sin cambiar el texto
     checkButton.disabled = true;
     
     // Geocodificar la dirección
     geocoder.geocode({ address: address + ', México' }, (results, status) => {
-        checkButton.textContent = originalText;
         checkButton.disabled = false;
         
         if (status === 'OK' && results[0]) {
@@ -237,6 +250,9 @@ function determineDeliveryZone(lat, lng) {
 
 // Mostrar el resultado de la verificación de dirección
 function showAddressResult(message, type) {
+    // Ocultar sugerencias de autocomplete antes de mostrar el resultado
+    hideAutocompleteSuggestions();
+    
     const resultDiv = document.getElementById('address-result');
     resultDiv.textContent = message;
     resultDiv.className = `address-result ${type}`;
@@ -269,6 +285,309 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar si ya se cargó Google Maps
     initMapsWhenReady();
 });
+
+// Configurar autocompletado de direcciones con Google Places
+function setupAddressAutocomplete() {
+    console.log('=== CONFIGURANDO AUTOCOMPLETADO ===');
+    
+    const addressInput = document.getElementById('address-input');
+    
+    if (!addressInput) {
+        console.error('Campo de dirección no encontrado para autocompletar');
+        console.log('Elementos con ID address-input:', document.querySelectorAll('#address-input'));
+        return;
+    }
+    
+    console.log('Campo de dirección encontrado:', addressInput);
+    
+    // Limpiar clases previas de Google Places si existen
+    addressInput.classList.remove('pac-target-input');
+    addressInput.removeAttribute('autocomplete');
+    console.log('Input limpiado:', addressInput);
+    
+    // Verificar que Google Places esté disponible
+    if (typeof google === 'undefined' || !google.maps || !google.maps.places) {
+        console.error('Google Places API no está disponible');
+        console.log('google:', typeof google);
+        console.log('google.maps:', typeof google?.maps);
+        console.log('google.maps.places:', typeof google?.maps?.places);
+        return;
+    }
+    
+    console.log('Google Places API disponible');
+    
+    // Configurar opciones del autocompletado (simplificadas)
+    const autocompleteOptions = {
+        // Solo restringir a México
+        componentRestrictions: { country: 'mx' },
+        
+        // Tipos de lugares permitidos
+        types: ['address']
+    };
+    
+    // Usar el nuevo PlaceAutocompleteElement (recomendado por Google)
+    console.log('Creando PlaceAutocompleteElement...');
+    
+    try {
+        // Crear el elemento de autocompletado
+        const autocompleteElement = document.createElement('gmp-place-autocomplete');
+        
+        // Configurar atributos
+        autocompleteElement.setAttribute('countries', 'mx');
+        autocompleteElement.setAttribute('types', 'address');
+        
+        // Configurar restricciones geográficas para México central
+        const bounds = {
+            north: 19.6,
+            south: 19.2,
+            east: -99.0,
+            west: -99.8
+        };
+        
+        // Temporalmente usar el método anterior hasta que el nuevo esté totalmente disponible
+        if (false && typeof google.maps.places.PlaceAutocompleteElement !== 'undefined') {
+            console.log('Usando PlaceAutocompleteElement (nuevo)');
+            
+            // Reemplazar el input original con el nuevo elemento
+            const parent = addressInput.parentNode;
+            autocompleteElement.id = 'direccion';
+            autocompleteElement.className = addressInput.className;
+            autocompleteElement.placeholder = 'Empieza a escribir tu dirección...';
+            
+            // Copiar estilos importantes
+            autocompleteElement.style.width = '100%';
+            autocompleteElement.style.padding = '12px';
+            autocompleteElement.style.border = '2px solid #cbd5e1';
+            autocompleteElement.style.borderRadius = '8px';
+            autocompleteElement.style.fontSize = '16px';
+            
+            parent.replaceChild(autocompleteElement, addressInput);
+            
+            // Agregar listener para cuando se selecciona un lugar
+            autocompleteElement.addEventListener('gmp-placeselect', (event) => {
+                const place = event.detail.place;
+                console.log('Lugar seleccionado (nuevo API):', place);
+                
+                if (place.location) {
+                    const lat = place.location.lat();
+                    const lng = place.location.lng();
+                    
+                    console.log('Dirección seleccionada:', place.formattedAddress);
+                    console.log('Coordenadas:', lat, lng);
+                    
+                    // Verificar zona de entrega
+                    const location = new google.maps.LatLng(lat, lng);
+                    checkDeliveryZone(location, place.formattedAddress);
+                    
+                    // Centrar mapa
+                    if (map) {
+                        map.setCenter(location);
+                        map.setZoom(16);
+                        
+                        // Agregar marcador
+                        if (window.selectedLocationMarker) {
+                            window.selectedLocationMarker.setMap(null);
+                        }
+                        
+                        window.selectedLocationMarker = new google.maps.Marker({
+                            position: location,
+                            map: map,
+                            title: 'Dirección seleccionada',
+                            icon: {
+                                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            // Fallback al método anterior
+            console.log('Usando Autocomplete (método anterior)');
+            console.log('Opciones para autocomplete:', autocompleteOptions);
+            console.log('Input element:', addressInput);
+            
+            // Probar primero sin opciones
+            let autocomplete;
+            try {
+                console.log('Intentando crear autocomplete SIN opciones...');
+                autocomplete = new google.maps.places.Autocomplete(addressInput);
+                console.log('Autocomplete SIN opciones creado exitosamente:', autocomplete);
+            } catch (error) {
+                console.error('Error creando autocomplete sin opciones:', error);
+                try {
+                    console.log('Intentando crear autocomplete CON opciones básicas...');
+                    autocomplete = new google.maps.places.Autocomplete(addressInput, { 
+                        componentRestrictions: { country: 'mx' } 
+                    });
+                    console.log('Autocomplete CON opciones básicas creado:', autocomplete);
+                } catch (error2) {
+                    console.error('Error creando autocomplete con opciones:', error2);
+                    return;
+                }
+            }
+            
+            autocomplete.addListener('place_changed', function() {
+                console.log('=== USUARIO SELECCIONÓ UNA SUGERENCIA ===');
+                
+                // OCULTAR SUGERENCIAS INMEDIATAMENTE
+                setTimeout(() => {
+                    hideAutocompleteSuggestions();
+                }, 100);
+                
+                const place = autocomplete.getPlace();
+                
+                if (!place.geometry || !place.geometry.location) {
+                    console.warn('No se encontraron detalles de ubicación para:', place.name);
+                    return;
+                }
+                
+                const lat = place.geometry.location.lat();
+                const lng = place.geometry.location.lng();
+                
+                console.log('Dirección seleccionada:', place.formatted_address);
+                console.log('Coordenadas:', lat, lng);
+                
+                const location = new google.maps.LatLng(lat, lng);
+                checkDeliveryZone(location, place.formatted_address);
+                
+                if (map) {
+                    map.setCenter(location);
+                    map.setZoom(16);
+                    
+                    if (window.selectedLocationMarker) {
+                        window.selectedLocationMarker.setMap(null);
+                    }
+                    
+                    window.selectedLocationMarker = new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: 'Dirección seleccionada',
+                        icon: {
+                            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                        }
+                    });
+                }
+            });
+            
+            // Controlar visibilidad de sugerencias con focus/blur
+            addressInput.addEventListener('focus', function() {
+                console.log('=== INPUT RECIBIÓ FOCUS ===');
+                
+                // Cambiar placeholder
+                if (this.placeholder === 'Ingresa tu dirección para verificar la zona de entrega') {
+                    this.placeholder = 'Empieza a escribir tu dirección...';
+                }
+                
+                // Mostrar sugerencias cuando el usuario hace focus
+                showAutocompleteSuggestions();
+            });
+            
+            addressInput.addEventListener('blur', function() {
+                console.log('=== INPUT PERDIÓ FOCUS ===');
+                
+                // Restaurar placeholder
+                if (!this.value) {
+                    this.placeholder = 'Ingresa tu dirección para verificar la zona de entrega';
+                }
+                
+                // Ocultar sugerencias cuando pierde focus (con un pequeño delay)
+                setTimeout(() => {
+                    // Solo ocultar si no se está haciendo clic en una sugerencia
+                    const activeElement = document.activeElement;
+                    if (!activeElement || !activeElement.closest('.pac-container')) {
+                        hideAutocompleteSuggestions();
+                    }
+                }, 150);
+            });
+            
+            // Test para verificar que el autocomplete esté funcionando
+            setTimeout(() => {
+                console.log('=== TEST DE AUTOCOMPLETE ===');
+                console.log('Input después de configuración:', addressInput);
+                console.log('Clases del input:', addressInput.className);
+                console.log('Atributos del input:', {
+                    autocomplete: addressInput.getAttribute('autocomplete'),
+                    placeholder: addressInput.placeholder,
+                    disabled: addressInput.disabled
+                });
+                
+                // Verificar si Google agregó sus clases
+                const pacContainer = document.querySelector('.pac-container');
+                console.log('Contenedor PAC encontrado:', pacContainer);
+                
+                // Simular focus para activar autocomplete
+                addressInput.focus();
+                console.log('Focus aplicado al input');
+            }, 1000);
+        }
+    
+        console.log('Autocompletado de direcciones configurado correctamente');
+        
+    } catch (error) {
+        console.error('Error al crear autocomplete:', error);
+        console.log('Detalles del error:', {
+            message: error.message,
+            stack: error.stack
+        });
+    }
+}
+
+// Función para ocultar sugerencias de autocomplete
+function hideAutocompleteSuggestions() {
+    console.log('=== OCULTANDO SUGERENCIAS ===');
+    
+    // Buscar TODOS los contenedores de sugerencias de Google Places
+    const pacContainers = document.querySelectorAll('.pac-container');
+    
+    pacContainers.forEach((pacContainer, index) => {
+        if (pacContainer) {
+            console.log(`Ocultando contenedor PAC ${index + 1}`);
+            // Ocultar completamente
+            pacContainer.style.display = 'none !important';
+            pacContainer.style.visibility = 'hidden';
+            pacContainer.style.opacity = '0';
+            pacContainer.style.zIndex = '-1';
+        }
+    });
+    
+    // Remover focus del input para cerrar completamente el autocomplete
+    const addressInput = document.getElementById('address-input');
+    if (addressInput) {
+        console.log('Removiendo focus del input');
+        addressInput.blur();
+        
+        // Simular Escape key para cerrar autocomplete
+        const escapeEvent = new KeyboardEvent('keydown', {
+            key: 'Escape',
+            code: 'Escape',
+            keyCode: 27,
+            which: 27,
+            bubbles: true
+        });
+        addressInput.dispatchEvent(escapeEvent);
+    }
+    
+    // NO restaurar automáticamente - solo cuando el usuario haga focus
+}
+
+// Función para mostrar sugerencias de autocomplete
+function showAutocompleteSuggestions() {
+    console.log('=== MOSTRANDO SUGERENCIAS ===');
+    
+    // Buscar TODOS los contenedores de sugerencias de Google Places
+    const pacContainers = document.querySelectorAll('.pac-container');
+    
+    pacContainers.forEach((pacContainer, index) => {
+        if (pacContainer) {
+            console.log(`Mostrando contenedor PAC ${index + 1}`);
+            // Restaurar visibilidad
+            pacContainer.style.display = '';
+            pacContainer.style.visibility = '';
+            pacContainer.style.opacity = '';
+            pacContainer.style.zIndex = '';
+        }
+    });
+}
 
 // Exponer función global para el callback de Google Maps
 window.initDeliveryMap = initDeliveryMap;

@@ -2688,6 +2688,58 @@ img {
     line-height: 1.5;
 }
 
+/* Google Places Autocomplete Styles */
+.pac-container {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: var(--font-size-sm);
+    z-index: 9999 !important;
+    background: white !important;
+    display: block !important;
+    position: absolute !important;
+}
+
+.pac-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.pac-item:hover {
+    background-color: var(--gray-50);
+}
+
+.pac-item-selected {
+    background-color: var(--primary-blue) !important;
+    color: var(--white) !important;
+}
+
+.pac-item-query {
+    font-weight: 600;
+    color: var(--dark-text);
+}
+
+.pac-item-selected .pac-item-query {
+    color: var(--white) !important;
+}
+
+.pac-matched {
+    font-weight: 700;
+}
+
+.pac-item-selected .pac-matched {
+    color: var(--white) !important;
+}
+
+/* Mejorar el input cuando está activo el autocompletado */
+#direccion.pac-target-input {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
 /* FAQ Section */
 .faq {
     padding: var(--spacing-2xl) 0;
