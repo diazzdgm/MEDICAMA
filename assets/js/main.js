@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initAnchorTracking();
     initCleanURLNavigation();
     
+    // Configurar SEO dinámico
+    setupDynamicSEO();
+    
     console.log('MEDICAMA - Sitio web inicializado correctamente');
 });
 
@@ -925,4 +928,74 @@ function initCleanURLNavigation() {
     } else {
         handleInitialLoad();
     }
+}
+
+/* ===================================
+   SEO DINÁMICO
+   =================================== */
+
+function setupDynamicSEO() {
+    // Asegurar que todas las URLs de sección apunten a la canónica principal
+    updateCanonicalURL();
+    
+    // Escuchar cambios de URL para actualizar canónica
+    window.addEventListener('popstate', updateCanonicalURL);
+}
+
+function updateCanonicalURL() {
+    const currentPath = window.location.pathname;
+    const currentHash = window.location.hash;
+    
+    // Buscar el elemento canónico existente
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    
+    if (!canonicalLink) {
+        // Crear elemento canónico si no existe
+        canonicalLink = document.createElement('link');
+        canonicalLink.rel = 'canonical';
+        document.head.appendChild(canonicalLink);
+    }
+    
+    // URLs de sección que deben apuntar a la página principal
+    const sectionPaths = [
+        '/contacto', '/productos', '/precios', '/proceso', 
+        '/garantia', '/testimonios', '/preguntas'
+    ];
+    
+    // Si estamos en una URL de sección o index.html, usar la canónica principal
+    if (sectionPaths.includes(currentPath) || currentPath === '/index.html' || currentPath.endsWith('/index.html')) {
+        canonicalLink.href = 'https://camadehospital.mx/';
+        console.log('URL canónica actualizada a:', canonicalLink.href);
+    } else if (currentPath === '/' || currentPath === '') {
+        canonicalLink.href = 'https://camadehospital.mx/';
+    }
+    
+    // Actualizar meta descripción dinámicamente basado en la sección
+    updateMetaDescription(currentPath);
+}
+
+function updateMetaDescription(path) {
+    let metaDescription = document.querySelector('meta[name="description"]');
+    
+    if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.name = 'description';
+        document.head.appendChild(metaDescription);
+    }
+    
+    // Descripciones específicas por sección
+    const descriptions = {
+        '/contacto': 'Contáctanos para rentar camas de hospital en Estado de México y CDMX. Entrega en 24 horas, sin depósito. ☎️ Llamadas y WhatsApp disponibles.',
+        '/productos': 'Camas de hospital manuales en renta. Equipamiento médico profesional para recuperación en casa en Estado de México y CDMX.',
+        '/precios': 'Precios de renta de camas hospitalarias desde $980 MXN/mes. Descuentos por rentas prolongadas. Sin depósito requerido.',
+        '/proceso': 'Proceso simple de renta: cotiza, agenda entrega en 24hrs, recibe capacitación. Servicio completo en Estado de México y CDMX.',
+        '/garantia': 'Garantía completa en equipamiento médico. Mantenimiento incluido, soporte técnico 24/7 y pagaré como garantía.',
+        '/testimonios': 'Testimonios reales de clientes satisfechos con nuestro servicio de renta de camas hospitalarias en México.',
+        '/preguntas': 'Preguntas frecuentes sobre renta de camas de hospital. Resuelve tus dudas sobre entrega, precios y equipamiento médico.'
+    };
+    
+    // Usar descripción específica o la general
+    const description = descriptions[path] || 'Renta de camas de hospital en Estado de México y CDMX. Entrega en 24 horas, equipamiento médico profesional, sin depósito. ¡Contáctanos ya!';
+    
+    metaDescription.content = description;
 }
